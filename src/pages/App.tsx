@@ -1,54 +1,17 @@
-import React, { useCallback, useMemo, useRef } from "react";
+import React from "react";
+import { View, StatusBar, StyleSheet, Image, Animated } from "react-native";
+import BottomSheetComponent from "../components/BottomSheet";
 import {
-  View,
-  Text,
-  StatusBar,
-  Dimensions,
-  StyleSheet,
-  Image,
-  Animated,
-  Button,
-} from "react-native";
-import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
-
-const { width, height } = Dimensions.get("window");
-
-const ITEM_WIDTH = width;
-const ITEM_HEIGHT = height * 0.75;
-
-const IMAGENS = [
-  "https://static.zara.net/photos///2022/V/0/1/p/4661/712/800/2/w/563/4661712800_1_1_1.jpg?ts=1643201605450",
-  "https://static.zara.net/photos///2022/V/0/1/p/4661/712/800/2/w/563/4661712800_2_1_1.jpg?ts=1643201606390",
-  "https://static.zara.net/photos///2022/V/0/1/p/4661/712/800/2/w/563/4661712800_2_2_1.jpg?ts=1643201638985",
-  "https://static.zara.net/photos///2022/V/0/1/p/4661/712/800/2/w/563/4661712800_2_3_1.jpg?ts=1643201627487",
-  "https://static.zara.net/photos///2022/V/0/1/p/4661/712/800/2/w/563/4661712800_6_1_1.jpg?ts=1643274959248",
-];
-
-const PRODUCT = {
-  title: "JAQUETA COM BOTÕES METÁLICOS",
-  descrition: [
-    "Jaqueta de gola com lapela e manga comprida. Bolsos falsos com aba na frente. Fecho na frente com botões metálicos.",
-    "PRETO | 4661/712",
-  ],
-  price: "R$ 479,00",
-};
-
-const DOT_SIZE = 8;
-const DOT_SPACING = 8;
-const DOT_INDICATOR_SIZE = DOT_SIZE + DOT_SPACING;
+  DOT_INDICATOR_SIZE,
+  DOT_SIZE,
+  DOT_SPACING,
+  IMAGENS,
+  ITEM_HEIGHT,
+  ITEM_WIDTH,
+} from "../dataBase";
 
 const ProductScreen: React.FC = () => {
   const scrollY = React.useRef(new Animated.Value(0)).current;
-  const sheetRef = useRef<BottomSheet>(null);
-
-  // variables
-  const data = useMemo(
-    () =>
-      Array(50)
-        .fill(0)
-        .map((_, index) => `index-${index}`),
-    []
-  );
 
   return (
     <View style={{ flex: 1 }}>
@@ -100,51 +63,7 @@ const ProductScreen: React.FC = () => {
         </View>
       </View>
 
-      <BottomSheet
-        ref={sheetRef}
-        index={0}
-        snapPoints={[height - ITEM_HEIGHT, height * 0.9]}
-      >
-        <BottomSheetScrollView contentContainerStyle={styles.contentContainer}>
-          <Text
-            style={{
-              fontWeight: "800",
-              fontSize: 16,
-              textTransform: "uppercase",
-            }}
-          >
-            {PRODUCT.title}
-          </Text>
-          <Text style={{ fontSize: 16 }}>{PRODUCT.price}</Text>
-          <View style={{ marginVertical: 20 }}>
-            {PRODUCT.descrition.map((item, index) => {
-              return (
-                <Text style={{ lineHeight: 22, marginBottom: 10 }} key={index}>
-                  {item}
-                </Text>
-              );
-            })}
-          </View>
-          <View style={{ marginVertical: 20 }}>
-            {PRODUCT.descrition.map((item, index) => {
-              return (
-                <Text style={{ lineHeight: 22, marginBottom: 10 }} key={index}>
-                  {item}
-                </Text>
-              );
-            })}
-          </View>
-          <View style={{ marginVertical: 20 }}>
-            {PRODUCT.descrition.map((item, index) => {
-              return (
-                <Text style={{ lineHeight: 22, marginBottom: 10 }} key={index}>
-                  {item}
-                </Text>
-              );
-            })}
-          </View>
-        </BottomSheetScrollView>
-      </BottomSheet>
+      <BottomSheetComponent />
     </View>
   );
 };
